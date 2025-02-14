@@ -42,6 +42,15 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    #noButton {
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .moving-button {
+      position: fixed !important;
+    }
   </style>
 </head>
 <body class="gradient-background">
@@ -121,7 +130,7 @@
       "./images/image6.gif",
       "./images/image7.gif"
     ];
-    
+
     function moveButton() {
       const maxX = window.innerWidth - noButton.offsetWidth;
       const maxY = window.innerHeight - noButton.offsetHeight;
@@ -145,13 +154,13 @@
         if (noClickCount < 6) {
           noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
         }
-      }
-         if (noClickCount === 5) {
+        
+        // On the last click, make the button start moving
+        if (noClickCount === 5) {
           noButton.classList.add('moving-button');
           noButton.addEventListener('mouseover', moveButton);
         }
       }
-    
     });
   
     yesButton.addEventListener('click', () => {
