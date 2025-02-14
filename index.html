@@ -50,6 +50,7 @@
 
     .moving-button {
       position: fixed !important;
+      z-index: 1000;
     }
   </style>
 </head>
@@ -140,8 +141,16 @@
       noButton.style.left = randomX + 'px';
       noButton.style.top = randomY + 'px';
     }
+
+    // Function to handle button movement for both touch and mouse events
+    function handleButtonMovement(event) {
+      if (noClickCount >= 5) {
+        event.preventDefault();
+        moveButton();
+      }
+    }
   
-    noButton.addEventListener('click', function() {
+    noButton.addEventListener('click', function(event) {
       if (noClickCount < 5) {
         noClickCount++;
         imageDisplay.src = imagePaths[noClickCount];
@@ -158,8 +167,14 @@
         // On the last click, make the button start moving
         if (noClickCount === 5) {
           noButton.classList.add('moving-button');
-          noButton.addEventListener('mouseover', moveButton);
+          // Add event listeners for both mouse and touch events
+          noButton.addEventListener('mouseover', handleButtonMovement);
+          noButton.addEventListener('touchstart', handleButtonMovement, { passive: false });
+          noButton.addEventListener('touchmove', handleButtonMovement, { passive: false });
         }
+      } else {
+        event.preventDefault();
+        moveButton();
       }
     });
   
