@@ -121,6 +121,16 @@
       "./images/image6.gif",
       "./images/image7.gif"
     ];
+    
+    function moveButton() {
+      const maxX = window.innerWidth - noButton.offsetWidth;
+      const maxY = window.innerHeight - noButton.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      
+      noButton.style.left = randomX + 'px';
+      noButton.style.top = randomY + 'px';
+    }
   
     noButton.addEventListener('click', function() {
       if (noClickCount < 5) {
@@ -136,6 +146,12 @@
           noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
         }
       }
+         if (noClickCount === 5) {
+          noButton.classList.add('moving-button');
+          noButton.addEventListener('mouseover', moveButton);
+        }
+      }
+    
     });
   
     yesButton.addEventListener('click', () => {
